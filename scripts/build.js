@@ -1,5 +1,6 @@
 import { build } from "esbuild";
 import PackageJson from '../package.json' assert { type: "json" };
+import { builtinModules } from "module";
 
 let { dependencies, peerDependencies } = PackageJson;
 
@@ -10,7 +11,7 @@ const sharedConfig = {
   entryPoints: ["src/index.ts"],
   bundle: true,
   // minify: true,
-  external: Object.keys(dependencies).concat(Object.keys(peerDependencies)),
+  external: Object.keys(dependencies).concat(Object.keys(peerDependencies)).concat(builtinModules),
 };
 
 await build({
